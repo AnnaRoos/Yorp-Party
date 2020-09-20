@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yorp Party!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grid-container">
+        <div class="game-intro">
+            <h1>YORP PARTY!</h1>
+            <p>You are Norp the Yorp. Your Yorp friends have been captured 
+            and your mission is to find them and save them. 
+            When all five have been rescued you're gonna 
+            have a big party to celebrate. <br>
+            And – the more party items you collect during your journey, 
+            the cooler the party will be! <br>
+            But look out for the Berkeloid, a deadly fire-creature...</p>
+            <button id="start-btn">Start game!</button>
+        </div>
+        <div class="score-board">
+            <h3>Time left:</h3>
+            <h3>Yorps rescued:</h3>
+            <h3>Party items:</h3>
+        </div>
+
+        <canvas id="canvas" width="900" height="660"></canvas>
+
+    </div>
+
+
+<img id="brick" src="images/brick.png" alt="brick">
+<img id="norp" src="images/norp_50.png" alt="yorp">
+<img id="norp2" src="images/norp_50_spegel.png" alt="norp">
+<img id="berkeloid" src="images/Berkeloid_GBC.png" alt="berkeloid">
+<img id="berkeloid2" src="images/Berkeloid_GBC_spegel.png" alt="berkeloid">
+<script src="app.js" ></script>
+</body>
+</html>
