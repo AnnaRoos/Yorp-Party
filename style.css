@@ -5,26 +5,38 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     background-color: lightgray;
     text-decoration: none;
+    overflow: hidden;
     
 }
-
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: repeat(3 1fr);
+    grid-template-rows: 50vh 15vh 35vh;
     gap: 1rem;
+}
+
+#background {
+    display: none;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    height: 660;
+    width: 900;
+
 }
 
 .game-intro {
     grid-column-start: 1;
     grid-row-start: 1;
+    grid-row-end: 3;
     margin: 1rem 1rem 1rem 1rem;
 }
 
 .score-board {
     grid-column-start: 1;
-    grid-row-start: 2;
+    grid-row-start: 3;
+    align-self: start;
     margin: 1rem 1rem 1rem 1rem;
     color: black;
     line-height: 1.8rem;
@@ -47,12 +59,23 @@
     grid-column-start: 2;
     grid-row-start: 1;
     grid-row-end: 3;
-    margin: 1rem 0;
+    margin-top: 2rem;
+    margin-left: 2rem;
 }
 
-img {
-    display: none;
+#first-image {
+    display: grid;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    align-self: end;
+    justify-self: center;
+    margin-top: 12rem;
+    margin-left: 7rem;
 }
+
+
 
 h1 {
     font-size: 5rem;
@@ -67,18 +90,22 @@ p {
 }
 
 #start-btn {
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
     grid-column-start: 1;
-    align-self: end;
+    align-self: start;
     font-size: 1rem;
     width: 10rem;
     height: 3rem;
-    margin: 1rem 0 1rem 1rem;
+    margin: 3rem 0 1rem 1rem;
     box-shadow: -2px 2px rgb(85, 255, 85);;
     outline: none;
 }
 
 button:active {
     background-color: rgb(85, 255, 85);
+}
+
+.hidden {
+    display: none;
 }
