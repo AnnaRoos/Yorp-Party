@@ -11,19 +11,20 @@
     <div class="grid-container">
         <div class="game-intro">
             <h1>YORP PARTY!</h1>
-            <p>You are Norp the Yorp. Your Yorp friends have been captured 
-            and your mission is to find them and save them. 
-            When all five have been rescued you're gonna 
+            <p>You are Norp the Yorp, a green little alien. 
+            Five of your Yorp friends, have gone missing and your mission
+            is to find them and bring them home. 
+            When all five have been found you're gonna 
             have a big party to celebrate. <br>
-            And – the more party items you collect during your journey, 
-            the cooler the party will be! <br>
-            But look out for the Berkeloid, a deadly fire-creature...</p>
-            <button id="start-btn">Start game!</button>
+            And – the more yummy snacks you collect during your journey, 
+            the better the party will be! <br>
+            But watch out for the Berkeloid – this fire-creature is deadly!</p>
         </div>
+        <button id="start-btn">Start game!</button>
         <div class="score-board">
-            <h3>Time left:</h3>
-            <h3>Yorps rescued:</h3>
-            <h3>Party items:</h3>
+            <h2>Time left: <span id="time-left">100</span></h2>
+            <h2>Yorps found: <span id="yorps-found">0</span></h2>
+            <h2>Party score: <span id="party-score">0</span></h2>
         </div>
 
         <canvas id="canvas" width="900" height="660"></canvas>
@@ -36,6 +37,17 @@
 <img id="norp2" src="images/norp_50_spegel.png" alt="norp">
 <img id="berkeloid" src="images/Berkeloid_GBC.png" alt="berkeloid">
 <img id="berkeloid2" src="images/Berkeloid_GBC_spegel.png" alt="berkeloid">
+<img id="lollipop" src="images/Lollipop.png" alt="lollipop">
+<img id="cake" src="images/Double_Chocolate_Cake.png" alt="cake">
+<img id="cookie" src="images/Cookie.png" alt="cookie">
+<img id="soda" src="images/Soda.png" alt="soda">
+<img id="peppermint" src="images/Peppermint.png" alt="peppermint">
+<img id="pizza" src="images/Pizza.png" alt="pizza">
+<img id="yorp-barrel" src="images/yorp_barrel.png" alt="yorp behind barrel">
+<img id="yorp-book" src="images/yorp_book.png" alt="yorp behind book">
+<img id="yorp-flower" src="images/yorp_flower.png" alt="yorp behind flower">
+<img id="yorp-mushroom" src="images/yorp_mushroom.png" alt="yorp behind mushroom">
+<img id="yorp-teddy" src="images/yorp_teddy.png" alt="yorp behind teddy">
 <script src="app.js" ></script>
 </body>
 </html>
