@@ -11,18 +11,15 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 27vw 73vw;
     grid-template-rows: 50vh 15vh 35vh;
     gap: 1rem;
 }
 
 #background {
-    display: none;
     grid-column-start: 2;
     grid-row-start: 1;
-    grid-row-end: 3;
-    height: 660;
-    width: 900;
+    grid-row-end: 4;
 
 }
 
@@ -30,14 +27,14 @@
     grid-column-start: 1;
     grid-row-start: 1;
     grid-row-end: 3;
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 2rem;
 }
 
 .score-board {
     grid-column-start: 1;
     grid-row-start: 3;
     align-self: start;
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 4rem 1rem 1rem 2rem;
     color: black;
     line-height: 1.8rem;
 
@@ -58,28 +55,62 @@
     background-color: darkgray;
     grid-column-start: 2;
     grid-row-start: 1;
-    grid-row-end: 3;
-    margin-top: 2rem;
+    grid-row-end: 4;
+    margin-top: 2rem; 
     margin-left: 2rem;
+
 }
 
 #first-image {
-    display: grid;
+
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 4;
-    align-self: end;
     justify-self: center;
-    margin-top: 12rem;
-    margin-left: 7rem;
+    margin-top: 10rem;
+    margin-left: 4rem;
+    height: 50vh;
+
+}
+
+.winning {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    top: 15rem;
+    margin: 1rem 0 0 1.5rem;
+    height: 50vh;
+}
+
+#congrats {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    font-size: 3rem;
+    text-align: center;
+    margin: 4rem 4rem 2rem 0;
+    top: 4rem;
+}
+
+#burning-yorp {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    justify-self: center;
+    margin-top: 10rem;
+    margin-left: 4rem;
+    height: 50vh;
 }
 
 
 
 h1 {
     font-size: 5rem;
-    margin: 0 0 1.5rem 0;
+    margin: 1rem 0 1.5rem 0;
     color: black;
     text-shadow: -2px 2px rgb(85, 255, 85);
 }
@@ -94,10 +125,10 @@ p {
     grid-row-end: 3;
     grid-column-start: 1;
     align-self: start;
-    font-size: 1rem;
+    font-size: 1.3rem;
     width: 10rem;
     height: 3rem;
-    margin: 3rem 0 1rem 1rem;
+    margin: 5rem 0 1rem 2rem;
     box-shadow: -2px 2px rgb(85, 255, 85);;
     outline: none;
 }

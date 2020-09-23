@@ -18,6 +18,13 @@ const yorpBook = document.getElementById('yorp-book');
 const yorpMushroom = document.getElementById('yorp-mushroom');
 const yorpFlower = document.getElementById('yorp-flower');
 const yorpTeddy = document.getElementById('yorp-teddy');
+const background = document.getElementById('background');
+const burningYorp = document.getElementById('burning-yorp');
+const greatGatsby = document.getElementById('great-gatsby');
+const firstImage = document.getElementById('first-image');
+const congrats = document.getElementById('congrats');
+
+let gamePlaying = false;
 
 const partyItems = [lollipop, cake, cookie, soda, peppermint, pizza];
 
@@ -33,8 +40,8 @@ const norpTheYorp = {
 };
 
 const missingYorp = {
-    getPosition: missingYorpPositions[Math.floor(Math.random() * 9)],
-    img: yorpImages[Math.floor(Math.random() * 5)],
+    getPosition: missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)],
+    img: yorpImages[Math.floor(Math.random() * yorpImages.length)],
     yorpsFound: 0
 
 };
@@ -49,7 +56,7 @@ const fireCreature = {
 const partyItem = {
     x1: Math.floor(Math.random() * 29),
     y1: Math.floor(Math.random() * 21),
-    img: partyItems[Math.floor(Math.random() * 6)],
+    img: partyItems[Math.floor(Math.random() * partyItems.length)],
     score: 0
 };
 
@@ -183,12 +190,21 @@ function moveNorp(e) {
 }
 
 function setTimer() {
-    let timeLeft = 100;
+    let timeLeft = 5;
     let counter = setInterval(function countdown() {
+        background.classList.add('hidden');
+        canvas.classList.remove('hidden');
+/*         gamePlaying = true; */
         timeLeft--;
         timer.textContent = timeLeft;
         if(timeLeft === 0) {
             clearInterval(counter); 
+            gamePlaying = false;
+            canvas.classList.add('hidden');
+            background.classList.remove('hidden');
+            firstImage.classList.add('hidden');
+            greatGatsby.classList.remove('hidden');
+            congrats.classList.remove('hidden');
         }
     }, 1000);
 }
@@ -209,4 +225,8 @@ function drawGame() {
 startBtn.addEventListener('click', setTimer); 
 document.addEventListener('keydown', moveNorp); 
 
+
 drawGame();
+
+
+
