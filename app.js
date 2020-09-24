@@ -21,10 +21,14 @@ const yorpTeddy = document.getElementById('yorp-teddy');
 const background = document.getElementById('background');
 const burningYorp = document.getElementById('burning-yorp');
 const greatGatsby = document.getElementById('great-gatsby');
+const waynesWorld = document.getElementById('waynes-world');
 const firstImage = document.getElementById('first-image');
 const congrats = document.getElementById('congrats');
 
-let gamePlaying = false;
+const brickSize = 30;
+let timeLeft = 100;
+let gameOver = false;
+let partyScore = 0;
 
 const partyItems = [lollipop, cake, cookie, soda, peppermint, pizza];
 
@@ -53,6 +57,7 @@ const fireCreature = {
     dy: -2
 };
 
+
 const partyItem = {
     x1: Math.floor(Math.random() * 29),
     y1: Math.floor(Math.random() * 21),
@@ -60,6 +65,17 @@ const partyItem = {
     score: 0
 };
 
+let partyItemObjects = [];
+
+for (let i = 0; i < 10; i++) {
+    let item = {
+        x1: Math.floor(Math.random() * 29),
+        y1: Math.floor(Math.random() * 21),
+        img: partyItems[Math.floor(Math.random() * partyItems.length)],
+
+    };
+    partyItemObjects.push(item);
+}
 
 
 
@@ -87,8 +103,6 @@ const map = [
     [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 ];
-
-const brickSize = 30;
 
 function drawMap() {
     for(let y = 0; y < map.length; y++){
@@ -129,7 +143,7 @@ function drawBerkeloid() {
 
 function drawPartyItem(img, x, y) {
     if(map[y][x] === 0 && map[y][x] === 0){ 
-        ctx.drawImage(img, x * 30, y * 30);
+        ctx.drawImage(img, x * brickSize, y * brickSize);
     } else {
         partyItem.x1 = Math.floor(Math.random() * 29);
         partyItem.y1 = Math.floor(Math.random() * 21);
@@ -138,12 +152,25 @@ function drawPartyItem(img, x, y) {
     }
 }
 
+function drawPartyItems(arrayOfItems) {
+    arrayOfItems.forEach(item => {
+        if(map[item.y1][item.x1] === 0 && map[item.y1][item.x1] === 0){ 
+            ctx.drawImage(item.img, item.x1 * brickSize, item.y1 * brickSize);
+        } else {
+            item.x1 = Math.floor(Math.random() * 29);
+            item.y1 = Math.floor(Math.random() * 21);
+            item.img = partyItems[Math.floor(Math.random() * 6)];
+            drawPartyItem(item.img, item.x1, item.y1);
+        }
+    })
+}
+
 
 function collectPartyItems() {
-    if((map[Math.round(norpTheYorp.x1 / 30)] === map[partyItem.x1] 
-    && map[Math.round(norpTheYorp.y1 / 30)] === map[partyItem.y1])
-    || (map[Math.round((norpTheYorp.x1 + 10) / 30)] === map[partyItem.x1]
-    && map[Math.round((norpTheYorp.y1 + 30) / 30)] === map[partyItem.y1])) {
+    if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[partyItem.x1] 
+    && map[Math.round(norpTheYorp.y1 / brickSize)] === map[partyItem.y1])
+    || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[partyItem.x1]
+    && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[partyItem.y1])) {
         partyItem.x1 = Math.floor(Math.random() * 29);
         partyItem.y1 = Math.floor(Math.random() * 21);
         partyItem.img = partyItems[Math.floor(Math.random() * 5)];
@@ -153,11 +180,26 @@ function collectPartyItems() {
     }
 }
 
+function collectPartyItemObjects(arrayOfPartyItems) {
+    for(let i = 0; i < arrayOfPartyItems.length; i++) {
+        if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[arrayOfPartyItems[i].x1] 
+        && map[Math.round(norpTheYorp.y1 / brickSize)] === map[arrayOfPartyItems[i].y1])
+        || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[arrayOfPartyItems[i].x1]
+        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[arrayOfPartyItems[i].y1])) {
+            arrayOfPartyItems[i].x1 = Math.floor(Math.random() * 29);
+            arrayOfPartyItems[i].y1 = Math.floor(Math.random() * 21);
+            arrayOfPartyItems[i].img = partyItems[Math.floor(Math.random() * 5)];
+            drawPartyItems(arrayOfPartyItems);
+            arrayOfPartyItems[i].score++;
+        }
+    }
+}
+
 function findYorp() {
-    if((map[Math.round(norpTheYorp.x1 / 30)] === map[missingYorp.getPosition[0]] 
-    && map[Math.round(norpTheYorp.y1 / 30)] === map[missingYorp.getPosition[1]])
-    || (map[Math.round((norpTheYorp.x1 + 10) / 30)] === map[missingYorp.getPosition[0]]
-    && map[Math.round((norpTheYorp.y1 + 30) / 30)] === map[missingYorp.getPosition[1]])) {
+    if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[missingYorp.getPosition[0]] 
+    && map[Math.round(norpTheYorp.y1 / brickSize)] === map[missingYorp.getPosition[1]])
+    || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[missingYorp.getPosition[0]]
+    && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[missingYorp.getPosition[1]])) {
         missingYorp.getPosition = missingYorpPositions[Math.floor(Math.random() * 9)];
         missingYorp.img = yorpImages[Math.floor(Math.random() * 5)];
         drawMissingYorp();
@@ -166,45 +208,72 @@ function findYorp() {
     }
 }
 
+function berkeloidAttack() {
+    if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[Math.round(fireCreature.x1 / brickSize)] 
+    && map[Math.round(norpTheYorp.y1 / brickSize)] === map[Math.round(fireCreature.y1 / brickSize)])
+    || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[Math.round(fireCreature.x1 / brickSize)]
+    && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[Math.round(fireCreature.y1 / brickSize)])) {
+        gameOver = true;
 
-function drawMissingYorp() {
-    ctx.drawImage(missingYorp.img, missingYorp.getPosition[0] * 30, missingYorp.getPosition[1] * 30 + 5);
+    }
 }
 
+
+function drawMissingYorp() {
+    ctx.drawImage(missingYorp.img, missingYorp.getPosition[0] * brickSize, missingYorp.getPosition[1] * brickSize + 5);
+}
+
+
 function moveNorp(e) {
-    if(e.keyCode === 37 && map[Math.round((norpTheYorp.y1 - 10) / 30)][Math.round((norpTheYorp.x1 - 20) / 30)] === 0
-    && map[Math.round((norpTheYorp.y1 + 30) / 30)][Math.round((norpTheYorp.x1 - 20) / 30)] === 0){
+    if(e.keyCode === 37 && map[Math.round((norpTheYorp.y1 - 10) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0
+    && map[Math.round((norpTheYorp.y1 + 30) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0){
         norpTheYorp.x1 -= 10;
         norp = document.getElementById('norp2');
-    } else if(e.keyCode === 38 && map[Math.round((norpTheYorp.y1 - 20) / 30)][Math.round((norpTheYorp.x1 - 10) / 30)] === 0
-    && map[Math.round((norpTheYorp.y1 - 20) / 30)][Math.round((norpTheYorp.x1 + 20) / 30)] === 0){
+    } else if(e.keyCode === 38 && map[Math.round((norpTheYorp.y1 - 20) / brickSize)][Math.round((norpTheYorp.x1 - 10) / brickSize)] === 0
+    && map[Math.round((norpTheYorp.y1 - 20) / brickSize)][Math.round((norpTheYorp.x1 + 20) / brickSize)] === 0){
         norpTheYorp.y1 -= 10;
-    } else if(e.keyCode === 39 && map[Math.round((norpTheYorp.y1 - 10) / 30)][Math.round((norpTheYorp.x1 + 25) / 30)] === 0
-    && map[Math.round((norpTheYorp.y1 + 30) / 30)][Math.round((norpTheYorp.x1 + 25) / 30)] === 0){
+    } else if(e.keyCode === 39 && map[Math.round((norpTheYorp.y1 - 10) / brickSize)][Math.round((norpTheYorp.x1 + 25) / brickSize)] === 0
+    && map[Math.round((norpTheYorp.y1 + 30) / brickSize)][Math.round((norpTheYorp.x1 + 25) / brickSize)] === 0){
         norpTheYorp.x1 += 10;
         norp = document.getElementById('norp');
-    } else if(e.keyCode === 40 && map[Math.round((norpTheYorp.y1 + 40) / 30)][Math.round((norpTheYorp.x1 -10) / 30)] === 0
-    && map[Math.round((norpTheYorp.y1 + 40) / 30)][Math.round((norpTheYorp.x1 + 20) / 30)] === 0){
+    } else if(e.keyCode === 40 && map[Math.round((norpTheYorp.y1 + 40) / brickSize)][Math.round((norpTheYorp.x1 -10) / brickSize)] === 0
+    && map[Math.round((norpTheYorp.y1 + 40) / brickSize)][Math.round((norpTheYorp.x1 + 20) / brickSize)] === 0){
         norpTheYorp.y1 += 10;
     }
 }
 
+
 function setTimer() {
-    let timeLeft = 5;
+    drawGame();
     let counter = setInterval(function countdown() {
         background.classList.add('hidden');
         canvas.classList.remove('hidden');
-/*         gamePlaying = true; */
         timeLeft--;
         timer.textContent = timeLeft;
-        if(timeLeft === 0) {
+        if(timeLeft === 0 && missingYorp.yorpsFound > 0 && partyItem.score > 0) {
             clearInterval(counter); 
-            gamePlaying = false;
             canvas.classList.add('hidden');
             background.classList.remove('hidden');
             firstImage.classList.add('hidden');
-            greatGatsby.classList.remove('hidden');
+            waynesWorld.classList.remove('hidden');
             congrats.classList.remove('hidden');
+            congrats.innerHTML = `Congratulations! <br> You found ${missingYorp.yorpsFound} 
+            friends and ${partyItem.score} party items!`;
+        } else if(gameOver) {
+            clearInterval(counter); 
+            canvas.classList.add('hidden');
+            background.classList.remove('hidden');
+            firstImage.classList.add('hidden');
+            burningYorp.classList.remove('hidden');
+            congrats.classList.remove('hidden');
+            congrats.innerHTML = 'Ouch, that hurt! <br> Try again!';
+        } else if(timeLeft === 0) {
+            clearInterval(counter); 
+            canvas.classList.add('hidden');
+            background.classList.remove('hidden');
+            firstImage.classList.add('hidden');
+            congrats.classList.remove('hidden');
+            congrats.innerHTML = `Time is up! <br> You didn't find any friends. <br> Better luck next time.`;
         }
     }, 1000);
 }
@@ -216,9 +285,12 @@ function drawGame() {
     drawNorp();
     drawMissingYorp();
     drawPartyItem(partyItem.img, partyItem.x1, partyItem.y1);
+    drawPartyItems(partyItemObjects);
     drawBerkeloid();
     collectPartyItems();
+    collectPartyItemObjects(partyItemObjects);
     findYorp();
+    berkeloidAttack();
     requestAnimationFrame(drawGame);
 }
 
@@ -226,7 +298,6 @@ startBtn.addEventListener('click', setTimer);
 document.addEventListener('keydown', moveNorp); 
 
 
-drawGame();
 
 
 
