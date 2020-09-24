@@ -28,7 +28,7 @@ const congrats = document.getElementById('congrats');
 const brickSize = 30;
 let timeLeft = 100;
 let gameOver = false;
-let partyScore = 0;
+let partyCount = 0;
 
 const partyItems = [lollipop, cake, cookie, soda, peppermint, pizza];
 
@@ -58,12 +58,12 @@ const fireCreature = {
 };
 
 
-const partyItem = {
+/* const partyItem = {
     x1: Math.floor(Math.random() * 29),
     y1: Math.floor(Math.random() * 21),
     img: partyItems[Math.floor(Math.random() * partyItems.length)],
     score: 0
-};
+}; */
 
 let partyItemObjects = [];
 
@@ -141,7 +141,7 @@ function drawBerkeloid() {
 
     
 
-function drawPartyItem(img, x, y) {
+/* function drawPartyItem(img, x, y) {
     if(map[y][x] === 0 && map[y][x] === 0){ 
         ctx.drawImage(img, x * brickSize, y * brickSize);
     } else {
@@ -150,7 +150,7 @@ function drawPartyItem(img, x, y) {
         partyItem.img = partyItems[Math.floor(Math.random() * 6)];
         drawPartyItem(partyItem.img, partyItem.x1, partyItem.y1);
     }
-}
+} */
 
 function drawPartyItems(arrayOfItems) {
     arrayOfItems.forEach(item => {
@@ -160,13 +160,13 @@ function drawPartyItems(arrayOfItems) {
             item.x1 = Math.floor(Math.random() * 29);
             item.y1 = Math.floor(Math.random() * 21);
             item.img = partyItems[Math.floor(Math.random() * 6)];
-            drawPartyItem(item.img, item.x1, item.y1);
+            drawPartyItems(arrayOfItems);
         }
     })
 }
 
 
-function collectPartyItems() {
+/* function collectPartyItems() {
     if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[partyItem.x1] 
     && map[Math.round(norpTheYorp.y1 / brickSize)] === map[partyItem.y1])
     || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[partyItem.x1]
@@ -178,7 +178,7 @@ function collectPartyItems() {
         partyItem.score++;
         partyScore.textContent = partyItem.score;
     }
-}
+} */
 
 function collectPartyItemObjects(arrayOfPartyItems) {
     for(let i = 0; i < arrayOfPartyItems.length; i++) {
@@ -190,7 +190,8 @@ function collectPartyItemObjects(arrayOfPartyItems) {
             arrayOfPartyItems[i].y1 = Math.floor(Math.random() * 21);
             arrayOfPartyItems[i].img = partyItems[Math.floor(Math.random() * 5)];
             drawPartyItems(arrayOfPartyItems);
-            arrayOfPartyItems[i].score++;
+            partyCount++;
+            partyScore.textContent = partyCount;
         }
     }
 }
@@ -284,10 +285,10 @@ function drawGame() {
     drawMap();
     drawNorp();
     drawMissingYorp();
-    drawPartyItem(partyItem.img, partyItem.x1, partyItem.y1);
+/*     drawPartyItem(partyItem.img, partyItem.x1, partyItem.y1); */
     drawPartyItems(partyItemObjects);
     drawBerkeloid();
-    collectPartyItems();
+/*     collectPartyItems(); */
     collectPartyItemObjects(partyItemObjects);
     findYorp();
     berkeloidAttack();
