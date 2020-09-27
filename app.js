@@ -53,11 +53,11 @@ window.addEventListener('load', () => {
     };
     
     let fireCreature = {
-        x1: 815,
-        y1: 575,
+        x1: 810,
+        y1: 570,
     };
-    let speedX = -2;
-    let speedY = -2;
+    let speedX = 0;
+    let speedY = 0;
     
     const partyItems = [lollipop, cake, cookie, soda, peppermint, pizza, iceCream];
     let partyItemObjects = [];
@@ -148,15 +148,24 @@ window.addEventListener('load', () => {
         })
     }
     
+
+/*     function collisionDetection(x1, y1, x2, y2) {
+        if((x1 === x2 && y1 === y2) || ()
+        || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0]
+        && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1])) {
+            return true;
+        }
+
+    } */
     
 
     
     function collectPartyItemObjects(arrayOfPartyItems) {
         for(let i = 0; i < arrayOfPartyItems.length; i++) {
-            if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[arrayOfPartyItems[i].x1] 
-            && map[Math.round(norpTheYorp.y1 / brickSize)] === map[arrayOfPartyItems[i].y1])
-            || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[arrayOfPartyItems[i].x1]
-            && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[arrayOfPartyItems[i].y1])) {
+            if((Math.round(norpTheYorp.x1 / brickSize) === arrayOfPartyItems[i].x1 
+            && Math.round(norpTheYorp.y1 / brickSize) === arrayOfPartyItems[i].y1)
+            || (Math.round((norpTheYorp.x1 + 10) / brickSize) === arrayOfPartyItems[i].x1
+            && Math.round((norpTheYorp.y1 + 30) / brickSize) === arrayOfPartyItems[i].y1)) {
                 
                 arrayOfPartyItems[i].x1 = Math.floor(Math.random() * 29);
                 arrayOfPartyItems[i].y1 = Math.floor(Math.random() * 21);
@@ -169,11 +178,11 @@ window.addEventListener('load', () => {
     }
     
     function findYorp() {
-        if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[missingYorp.getPosition[0]] 
-        && map[Math.round(norpTheYorp.y1 / brickSize)] === map[missingYorp.getPosition[1]])
-        || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[missingYorp.getPosition[0]]
-        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[missingYorp.getPosition[1]])) {
-
+        if((Math.round(norpTheYorp.x1 / brickSize) === missingYorp.getPosition[0] 
+        && Math.round(norpTheYorp.y1 / brickSize) === missingYorp.getPosition[1])
+        || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0]
+        && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1])) {
+            
             missingYorp.getPosition = missingYorpPositions[Math.floor(Math.random() * 9)];
             missingYorp.img = yorpImages[Math.floor(Math.random() * 5)];
             missingYorp.yorpsFound++;
@@ -183,11 +192,10 @@ window.addEventListener('load', () => {
     }
     
     function berkeloidAttack() {
-        if((map[Math.round(norpTheYorp.x1 / brickSize)] === map[Math.round(fireCreature.x1 / brickSize)] 
-        && map[Math.round(norpTheYorp.y1 / brickSize)] === map[Math.round(fireCreature.y1 / brickSize)])
-        || (map[Math.round((norpTheYorp.x1 + 10) / brickSize)] === map[Math.round(fireCreature.x1 / brickSize)]
-        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)] === map[Math.round(fireCreature.y1 / brickSize)])) {
-            
+        if((Math.round((norpTheYorp.x1 + 20) / brickSize) === Math.round((fireCreature.x1 + 30) / brickSize) 
+        && Math.round((norpTheYorp.y1 + 20) / brickSize) === Math.round((fireCreature.y1 + 30) / brickSize))
+        || (Math.round((norpTheYorp.x1 + 20) / brickSize) === Math.round((fireCreature.x1 + 30) / brickSize)
+        && Math.round((norpTheYorp.y1 + 50) / brickSize) === Math.round((fireCreature.y1 + 30) / brickSize))) {
             gameOver = true;
         }
     }
@@ -226,8 +234,8 @@ window.addEventListener('load', () => {
         speedX = -2;
         speedY = -2;
         berkeloid = document.getElementById('berkeloid');
-        fireCreature.x1 = 815;
-        fireCreature.y1 = 575;        
+        fireCreature.x1 = 810;
+        fireCreature.y1 = 570;        
         norp = document.getElementById('norp');
         norpTheYorp.x1 = 30;
         norpTheYorp.y1 = 30;
