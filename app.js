@@ -27,14 +27,17 @@ window.addEventListener('load', () => {
     const waynesWorld = document.getElementById('waynes-world');
     const firstImage = document.getElementById('first-image');
     const congrats = document.getElementById('congrats');
-    
+    const lastWords = document.getElementById('last-words');
+
     const brickSize = 30;
     let timeLeft = 10;
     let gameOver = false;
     let partyCount = 0;
+    let requestID = null;
+    let typeOfParty;
 
     
-    const missingYorpPositions = [
+    let missingYorpPositions = [
         [5, 2], [17, 2], [14, 5], [9, 11], [10, 16], [5, 19], [24, 19], [18, 12], [23, 8]
     ];
     
@@ -45,7 +48,7 @@ window.addEventListener('load', () => {
         y1: 30
     };
     
-    const missingYorp = {
+    let missingYorp = {
         getPosition: missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)],
         img: yorpImages[Math.floor(Math.random() * yorpImages.length)],
         yorpsFound: 0
@@ -56,8 +59,9 @@ window.addEventListener('load', () => {
         x1: 810,
         y1: 570,
     };
-    let speedX = 0;
-    let speedY = 0;
+    let speedX = -2;
+    let speedY = -2;
+
     
     const partyItems = [lollipop, cake, cookie, soda, peppermint, pizza, iceCream];
     let partyItemObjects = [];
@@ -120,7 +124,8 @@ window.addEventListener('load', () => {
         ctx.drawImage(berkeloid, fireCreature.x1, fireCreature.y1)
         fireCreature.x1 += speedX;
         fireCreature.y1 += speedY;
-        if(fireCreature.y1 + speedY < 25 || fireCreature.y1 + speedY > canvas.height - 85){
+        if(fireCreature.y1 + speedY < 25 || fireCreature.y1 + speedY > canvas.height - 85){ 
+            //top || bottom
             speedY = -speedY;
         } 
         if(fireCreature.x1 + speedX > canvas.width - 85) {
@@ -182,11 +187,16 @@ window.addEventListener('load', () => {
         && Math.round(norpTheYorp.y1 / brickSize) === missingYorp.getPosition[1])
         || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0]
         && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1])) {
-            
-            missingYorp.getPosition = missingYorpPositions[Math.floor(Math.random() * 9)];
-            missingYorp.img = yorpImages[Math.floor(Math.random() * 5)];
-            missingYorp.yorpsFound++;
-            yorpCount.textContent = missingYorp.yorpsFound;
+
+            let newPosition = missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)];
+            if((newPosition[0] != missingYorp.getPosition[0]) && (newPosition[0] != missingYorp.getPosition[1])){
+                missingYorp.getPosition = newPosition;
+                missingYorp.img = yorpImages[Math.floor(Math.random() * yorpImages.length)];
+                missingYorp.yorpsFound++;
+                yorpCount.textContent = missingYorp.yorpsFound;
+            } else {
+                newPosition = missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)];
+            }
 
         }
     }
@@ -231,50 +241,67 @@ window.addEventListener('load', () => {
         missingYorp.yorpsFound = 0;
         yorpCount.textContent = missingYorp.yorpsFound;
         partyScore.textContent = partyCount;
-        speedX = -2;
-        speedY = -2;
         berkeloid = document.getElementById('berkeloid');
         fireCreature.x1 = 810;
         fireCreature.y1 = 570;        
         norp = document.getElementById('norp');
         norpTheYorp.x1 = 30;
         norpTheYorp.y1 = 30;
+        missingYorpPositions = [
+            [5, 2], [17, 2], [14, 5], [9, 11], [10, 16], [5, 19], [24, 19], [18, 12], [23, 8]
+        ];
+        congrats.classList.add('hidden');
+        lastWords.classList.add('hidden');
+        waynesWorld.classList.add('hidden');
+        legallyBlonde.classList.add('hidden');
+        burningYorp.classList.add('hidden');
     }
     
     function setTimer() {
         resetValues();
         drawGame();
+        background.classList.add('hidden');
+        canvas.classList.remove('hidden');
         let counter = setInterval(function countdown() {
-            background.classList.add('hidden');
-            canvas.classList.remove('hidden');
-            timeLeft--;
-            timer.textContent = timeLeft;
             if(timeLeft === 0 && missingYorp.yorpsFound === 5) {
+                cancelAnimationFrame(requestID);
                 clearInterval(counter); 
+                typeOfParty = 'car party';
                 canvas.classList.add('hidden');
                 background.classList.remove('hidden');
                 firstImage.classList.add('hidden');
                 waynesWorld.classList.remove('hidden');
                 congrats.classList.remove('hidden');
-                congrats.innerHTML = `Congratulations! <br> You found all your 
-                friends and reached a party score of ${partyCount}!`;
+                lastWords.classList.remove('hidden');
+                congrats.innerHTML = 'Congratulations!';
+                lastWords.innerHTML = `You found all of your 
+                friends and reached a party score of ${partyCount} which means ${typeOfParty}!`;
             } else if(gameOver) {
+                cancelAnimationFrame(requestID);
                 clearInterval(counter); 
                 canvas.classList.add('hidden');
                 background.classList.remove('hidden');
                 firstImage.classList.add('hidden');
                 burningYorp.classList.remove('hidden');
                 congrats.classList.remove('hidden');
-                congrats.innerHTML = 'Ouch, that hurt! <br> Try again!';
+                lastWords.classList.remove('hidden');
+                congrats.innerHTML = 'Ouch, that hurt!';
+                lastWords.innerHTML = 'Wash that soot off your face and try again.';
             } else if(timeLeft === 0) {
+                cancelAnimationFrame(requestID);
                 clearInterval(counter); 
                 canvas.classList.add('hidden');
                 background.classList.remove('hidden');
                 firstImage.classList.add('hidden');
                 legallyBlonde.classList.remove('hidden');
                 congrats.classList.remove('hidden');
-                congrats.innerHTML = `Time is up! You couldn't find all your friends,
+                lastWords.classList.remove('hidden');
+                congrats.innerHTML = `Time is up!`;
+                lastWords.innerHTML = `You couldn't find all of your friends,
                 so you ended up eating candy in bed alone. Better luck next time.`;
+            } else {
+                timeLeft--;
+                timer.textContent = timeLeft;
             }
         }, 1000);
     }
@@ -292,14 +319,11 @@ window.addEventListener('load', () => {
         collectPartyItemObjects(partyItemObjects);
         findYorp();
         berkeloidAttack();
-        requestAnimationFrame(drawGame);
+        requestID = requestAnimationFrame(drawGame);
     }
     
     startBtn.addEventListener('click', setTimer); 
     document.addEventListener('keydown', moveNorp); 
-    
-    
-    
     
 })
 

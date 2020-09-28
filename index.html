@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Yorp Party!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
 </head>
@@ -14,7 +15,7 @@
             <h1>YORP PARTY!</h1>
             <p>You are Norp the Yorp, a green little alien. <br>
             Five of your Yorp friends have gone missing and your mission
-            is to find them. When all are found you're gonna 
+            is to find them. When all of your friends are found you're gonna 
             have a big party to celebrate. <br>
             And – the more yummy treats you collect on your journey, 
             the better the party will be! <br>
@@ -22,20 +23,21 @@
         </div>
         <button id="start-btn">Start game!</button>
         <div class="score-board">
-            <h2>Time left: <span id="time-left">100</span></h2>
-            <h2>Yorps found: <span id="yorps-found">0</span></h2>
-            <h2>Party score: <span id="party-score">0</span></h2>
+            <h4>Time left: <span id="time-left">100</span></h4>
+            <h4>Yorps found: <span id="yorps-found">0</span></h4>
+            <h4>Party score: <span id="party-score">0</span></h4>
         </div>
 
         <canvas id="canvas" class="hidden" width="900" height="660"></canvas>
         <div id="background">
-            <h2 class="hidden" id="congrats"></h2>
+            <h3 class="hidden" id="congrats"></h3>
             <img id="first-image" src="images/firstImage2/firstImage2.001.png" alt="two yorps talking">
             <img class="hidden" id="burning-yorp" src="images/burning yorp/burning yorp.001.jpeg" alt="yorp on fire">
             <img class="hidden" id="satc" src="https://media.giphy.com/media/RchHgsK1Tsgo0/giphy.gif" alt="bridesmaids">
             <img class="hidden" id="great-gatsby" src="https://media.giphy.com/media/8Iv5lqKwKsZ2g/giphy.gif" alt="great gatsby">
             <img class="hidden" id="legally-blonde" src="https://media.giphy.com/media/xT39Dp5RixgNO28Nm8/giphy.gif" alt="legally blonde">
             <img class="hidden" id="waynes-world" src="https://media.giphy.com/media/cAfaWIcWr7qus/giphy.gif" alt="waynes world">
+            <h4 class="hidden" id="last-words"></h4>
         </div>
     </div>
 

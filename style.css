@@ -6,7 +6,6 @@
     background-color: lightgray;
     text-decoration: none;
     overflow: hidden;
-    
 }
 
 .grid-container {
@@ -36,15 +35,13 @@
     grid-row-start: 3;
     align-self: start;
     margin: 4rem 1rem 1rem 2rem;
-    color: black;
-    line-height: 1.8rem;
+    line-height: 2rem;
 
 }
 
 .timer {
     grid-column-start: 1;
     grid-row-start: 1;
-
     align-self: end;
     color: black;
     margin: 1rem 1rem 1rem 1rem;
@@ -79,11 +76,32 @@
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
-    font-size: 3rem;
     text-align: center;
-    margin: 6rem 6rem 1rem 0;
-    text-shadow: -1px 1px rgb(85, 255, 85);
+    margin: 4rem 2rem 1rem 0;
+    font-size: 4rem;
+    text-shadow: -2px 2px rgb(85, 255, 85);
 }
+
+h1 {
+    font-size: 5rem;
+    margin: 1rem 0 1.5rem 0;
+    text-shadow: -2px 2px rgb(85, 255, 85);
+}
+
+p {
+    font-size: 1rem;
+}
+
+h4 {
+    font-size: 1.8rem;
+}
+
+#last-words {
+    font-size: 2rem;
+    margin: 1rem 12rem 1rem 10rem;
+}
+
+
 
 #burning-yorp {
     grid-column-start: 2;
@@ -103,7 +121,7 @@
     grid-row-end: 3;
     justify-self: center;
     margin-top: 1rem;
-    margin-left: 9rem;
+    margin-left: 10rem;
     height: 50vh;
 }
 
@@ -114,22 +132,10 @@
     grid-row-end: 3;
     justify-self: center;
     margin-top: 1rem;
-    margin-left: 9rem;
+    margin-left: 10rem;
     height: 50vh;
 }
 
-
-h1 {
-    font-size: 5rem;
-    margin: 1rem 0 1.5rem 0;
-    color: black;
-    text-shadow: -2px 2px rgb(85, 255, 85);
-}
-
-p {
-    color:black;
-    font-size: 1rem;
-}
 
 #start-btn {
     grid-row-start: 2;
