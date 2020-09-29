@@ -20,6 +20,18 @@
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 4;
+}
+
+.purple {
+    background-color: rgb(164, 64, 202);
+}
+
+.blue {
+    background-color: rgb(84, 253, 254);
+}
+
+.blue2 {
+    background-color: rgb(93, 167, 173);
 
 }
 
@@ -31,23 +43,17 @@
 }
 
 .score-board {
+    font-family: 'Press Start 2P', cursive;
     grid-column-start: 1;
     grid-row-start: 3;
     align-self: start;
     margin: 4rem 1rem 1rem 2rem;
     line-height: 2rem;
-
 }
 
-.timer {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    align-self: end;
-    color: black;
-    margin: 1rem 1rem 1rem 1rem;
-
+#time-left, #yorps-found, #party-score {
+    font-family: 'Press Start 2P', cursive;
 }
-
 
 #canvas {
     background-color: darkgray;
@@ -65,9 +71,9 @@
     grid-row-start: 1;
     grid-row-end: 4;
     justify-self: center;
-    margin-top: 10rem;
-    margin-left: 4rem;
-    height: 50vh;
+    margin-top: 8rem;
+    margin-left: 3rem;
+    height: 70vh;
 }
 
 
@@ -76,16 +82,19 @@
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
-    text-align: center;
-    margin: 4rem 2rem 1rem 0;
-    font-size: 4rem;
-    text-shadow: -2px 2px rgb(85, 255, 85);
+    margin: 3rem 2rem 1rem 9rem;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3rem;
+    text-shadow: -4px 4px rgb(85, 255, 85);
+    background-color: transparent;
 }
 
 h1 {
-    font-size: 5rem;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 4.2rem;
+    line-height: 5.5rem;
     margin: 1rem 0 1.5rem 0;
-    text-shadow: -2px 2px rgb(85, 255, 85);
+    text-shadow: -4px 4px rgb(85, 255, 85);
 }
 
 p {
@@ -93,15 +102,23 @@ p {
 }
 
 h4 {
-    font-size: 1.8rem;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
 }
 
 #last-words {
-    font-size: 2rem;
-    margin: 1rem 12rem 1rem 10rem;
+    font-size: 1.5rem;
+    margin: 1rem 11rem 1rem 9rem;
+    line-height: 2.5rem;
+    background-color: transparent;
+
 }
 
-
+#type-party {
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: -2px 2px rgb(85, 255, 85);
+    background-color: transparent;
+}
 
 #burning-yorp {
     grid-column-start: 2;
@@ -109,20 +126,20 @@ h4 {
     grid-row-start: 1;
     grid-row-end: 3;
     justify-self: center;
-    margin-top: 1rem;
-    margin-left: 15rem;
-    height: 50vh;
+    margin-top: 4rem;
+    margin-left: 5rem;
+    width: 50vw;
 }
 
-#waynes-world {
+.winner {
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 3;
     justify-self: center;
     margin-top: 1rem;
-    margin-left: 10rem;
-    height: 50vh;
+    margin-left: 9rem;
+    width: 50vw;
 }
 
 #legally-blonde {
@@ -132,8 +149,8 @@ h4 {
     grid-row-end: 3;
     justify-self: center;
     margin-top: 1rem;
-    margin-left: 10rem;
-    height: 50vh;
+    margin-left: 9rem;
+    width: 50vw;
 }
 
 
@@ -142,11 +159,12 @@ h4 {
     grid-row-end: 3;
     grid-column-start: 1;
     align-self: start;
+    font-family: 'Press Start 2P', cursive;
     font-size: 1.3rem;
-    width: 10rem;
+    width: 20rem;
     height: 3rem;
     margin: 5rem 0 1rem 2rem;
-    box-shadow: -2px 2px rgb(85, 255, 85);;
+    box-shadow: -4px 4px rgb(85, 255, 85);
     outline: none;
 }
 

@@ -25,9 +25,16 @@ window.addEventListener('load', () => {
     const burningYorp = document.getElementById('burning-yorp');
     const legallyBlonde = document.getElementById('legally-blonde');
     const waynesWorld = document.getElementById('waynes-world');
+    const dirtyDancing = document.getElementById('dirty-dancing');
+    const breakfastClub = document.getElementById('breakfast-club');
+    const greatGatsby = document.getElementById('great-gatsby');
+    const satc = document.getElementById('satc');
     const firstImage = document.getElementById('first-image');
     const congrats = document.getElementById('congrats');
     const lastWords = document.getElementById('last-words');
+    const partyType = document.getElementById('type-party');
+    
+
 
     const brickSize = 30;
     let timeLeft = 10;
@@ -253,6 +260,9 @@ window.addEventListener('load', () => {
         congrats.classList.add('hidden');
         lastWords.classList.add('hidden');
         waynesWorld.classList.add('hidden');
+        satc.classList.add('hidden');
+        breakfastClub.classList.add('hidden');
+        dirtyDancing.classList.add('hidden');
         legallyBlonde.classList.add('hidden');
         burningYorp.classList.add('hidden');
     }
@@ -266,16 +276,35 @@ window.addEventListener('load', () => {
             if(timeLeft === 0 && missingYorp.yorpsFound === 5) {
                 cancelAnimationFrame(requestID);
                 clearInterval(counter); 
-                typeOfParty = 'car party';
                 canvas.classList.add('hidden');
                 background.classList.remove('hidden');
                 firstImage.classList.add('hidden');
-                waynesWorld.classList.remove('hidden');
                 congrats.classList.remove('hidden');
                 lastWords.classList.remove('hidden');
+                if(partyCount < 5){
+                    background.style.backgroundColor = 'rgb(123, 204, 207)';
+                    typeOfParty = 'DETENTION PARTY';
+                    breakfastClub.classList.remove('hidden');
+                } else if(partyCount < 10){
+                    background.style.backgroundColor = 'rgb(95, 127, 196)';
+                    typeOfParty = 'CAR PARTY';
+                    waynesWorld.classList.remove('hidden');
+                } else if(partyCount < 15) {
+                    background.style.backgroundColor = 'rgb(104, 73, 161)';
+                    typeOfParty = 'SHOT PARTY';
+                    satc.classList.remove('hidden');
+                } else if(partyCount < 20){
+                    background.style.backgroundColor = 'rgb(254, 150, 132)';
+                    typeOfParty = 'DANCE PARTY';
+                    dirtyDancing.classList.remove('hidden');
+                } else {
+                    background.style.backgroundColor = 'rgb(84, 253, 254)';
+                    typeOfParty = 'MEGA PARTY';
+                    greatGatsby.classList.remove('hidden');
+                }
                 congrats.innerHTML = 'Congratulations!';
-                lastWords.innerHTML = `You found all of your 
-                friends and reached a party score of ${partyCount} which means ${typeOfParty}!`;
+                lastWords.innerHTML = `You found all of your Yorp friends and reached a 
+                party score of ${partyCount} which means <br> – <span id="type-party"> ${typeOfParty} </span>!`;
             } else if(gameOver) {
                 cancelAnimationFrame(requestID);
                 clearInterval(counter); 
@@ -285,14 +314,13 @@ window.addEventListener('load', () => {
                 burningYorp.classList.remove('hidden');
                 congrats.classList.remove('hidden');
                 lastWords.classList.remove('hidden');
-                congrats.innerHTML = 'Ouch, that hurt!';
-                lastWords.innerHTML = 'Wash that soot off your face and try again.';
             } else if(timeLeft === 0) {
                 cancelAnimationFrame(requestID);
                 clearInterval(counter); 
                 canvas.classList.add('hidden');
                 background.classList.remove('hidden');
                 firstImage.classList.add('hidden');
+                background.style.backgroundColor = 'rgb(164, 64, 202)';
                 legallyBlonde.classList.remove('hidden');
                 congrats.classList.remove('hidden');
                 lastWords.classList.remove('hidden');
