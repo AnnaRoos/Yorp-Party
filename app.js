@@ -33,7 +33,9 @@ window.addEventListener('load', () => {
     const congrats = document.getElementById('congrats');
     const lastWords = document.getElementById('last-words');
     const partyType = document.getElementById('type-party');
-    
+    const collectSound = new Audio('collectCandy3.mp3');
+    const ouch = new Audio('ouch.mp3');
+    const findingYorp = new Audio('collectCandy2.mp3');
 
 
     const brickSize = 30;
@@ -42,6 +44,7 @@ window.addEventListener('load', () => {
     let partyCount = 0;
     let requestID = null;
     let typeOfParty;
+    let counter;
 
     
     let missingYorpPositions = [
@@ -179,6 +182,7 @@ window.addEventListener('load', () => {
             || (Math.round((norpTheYorp.x1 + 10) / brickSize) === arrayOfPartyItems[i].x1
             && Math.round((norpTheYorp.y1 + 30) / brickSize) === arrayOfPartyItems[i].y1)) {
                 
+                collectSound.play();
                 arrayOfPartyItems[i].x1 = Math.floor(Math.random() * 29);
                 arrayOfPartyItems[i].y1 = Math.floor(Math.random() * 21);
                 arrayOfPartyItems[i].img = partyItems[Math.floor(Math.random() * 5)];
@@ -195,6 +199,7 @@ window.addEventListener('load', () => {
         || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0]
         && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1])) {
 
+            findingYorp.play();
             let newPosition = missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)];
             if((newPosition[0] != missingYorp.getPosition[0]) && (newPosition[0] != missingYorp.getPosition[1])){
                 missingYorp.getPosition = newPosition;
@@ -213,6 +218,7 @@ window.addEventListener('load', () => {
         && Math.round((norpTheYorp.y1 + 20) / brickSize) === Math.round((fireCreature.y1 + 30) / brickSize))
         || (Math.round((norpTheYorp.x1 + 20) / brickSize) === Math.round((fireCreature.x1 + 30) / brickSize)
         && Math.round((norpTheYorp.y1 + 50) / brickSize) === Math.round((fireCreature.y1 + 30) / brickSize))) {
+            ouch.play();
             gameOver = true;
         }
     }
@@ -254,9 +260,9 @@ window.addEventListener('load', () => {
         norp = document.getElementById('norp');
         norpTheYorp.x1 = 30;
         norpTheYorp.y1 = 30;
-        missingYorpPositions = [
+/*         missingYorpPositions = [
             [5, 2], [17, 2], [14, 5], [9, 11], [10, 16], [5, 19], [24, 19], [18, 12], [23, 8]
-        ];
+        ]; */
         congrats.classList.add('hidden');
         lastWords.classList.add('hidden');
         waynesWorld.classList.add('hidden');
@@ -265,6 +271,8 @@ window.addEventListener('load', () => {
         dirtyDancing.classList.add('hidden');
         legallyBlonde.classList.add('hidden');
         burningYorp.classList.add('hidden');
+        cancelAnimationFrame(requestID);
+        clearInterval(counter); 
     }
     
     function setTimer() {
@@ -272,7 +280,7 @@ window.addEventListener('load', () => {
         drawGame();
         background.classList.add('hidden');
         canvas.classList.remove('hidden');
-        let counter = setInterval(function countdown() {
+        counter = setInterval(function countdown() {
             if(timeLeft === 0 && missingYorp.yorpsFound === 5) {
                 cancelAnimationFrame(requestID);
                 clearInterval(counter); 
@@ -281,19 +289,19 @@ window.addEventListener('load', () => {
                 firstImage.classList.add('hidden');
                 congrats.classList.remove('hidden');
                 lastWords.classList.remove('hidden');
-                if(partyCount < 5){
+                if(partyCount < 10){
                     background.style.backgroundColor = 'rgb(123, 204, 207)';
                     typeOfParty = 'DETENTION PARTY';
                     breakfastClub.classList.remove('hidden');
-                } else if(partyCount < 10){
+                } else if(partyCount < 15){
                     background.style.backgroundColor = 'rgb(95, 127, 196)';
                     typeOfParty = 'CAR PARTY';
                     waynesWorld.classList.remove('hidden');
-                } else if(partyCount < 15) {
+                } else if(partyCount < 20) {
                     background.style.backgroundColor = 'rgb(104, 73, 161)';
                     typeOfParty = 'SHOT PARTY';
                     satc.classList.remove('hidden');
-                } else if(partyCount < 20){
+                } else if(partyCount < 25){
                     background.style.backgroundColor = 'rgb(254, 150, 132)';
                     typeOfParty = 'DANCE PARTY';
                     dirtyDancing.classList.remove('hidden');
@@ -309,11 +317,10 @@ window.addEventListener('load', () => {
                 cancelAnimationFrame(requestID);
                 clearInterval(counter); 
                 canvas.classList.add('hidden');
+                background.style.backgroundColor = 'rgb(211, 211, 211)';
                 background.classList.remove('hidden');
                 firstImage.classList.add('hidden');
                 burningYorp.classList.remove('hidden');
-                congrats.classList.remove('hidden');
-                lastWords.classList.remove('hidden');
             } else if(timeLeft === 0) {
                 cancelAnimationFrame(requestID);
                 clearInterval(counter); 

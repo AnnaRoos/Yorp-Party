@@ -85,7 +85,7 @@
     margin: 3rem 2rem 1rem 9rem;
     font-family: 'Press Start 2P', cursive;
     font-size: 3rem;
-    text-shadow: -4px 4px rgb(85, 255, 85);
+    text-shadow: -4px 4px rgb(83, 255, 85);
     background-color: transparent;
 }
 
@@ -94,7 +94,7 @@ h1 {
     font-size: 4.2rem;
     line-height: 5.5rem;
     margin: 1rem 0 1.5rem 0;
-    text-shadow: -4px 4px rgb(85, 255, 85);
+    text-shadow: -4px 4px rgb(83, 255, 85);
 }
 
 p {
@@ -116,7 +116,7 @@ h4 {
 
 #type-party {
     font-family: 'Press Start 2P', cursive;
-    text-shadow: -2px 2px rgb(85, 255, 85);
+    text-shadow: -2px 2px rgb(83, 255, 85);
     background-color: transparent;
 }
 
@@ -126,7 +126,7 @@ h4 {
     grid-row-start: 1;
     grid-row-end: 3;
     justify-self: center;
-    margin-top: 4rem;
+    margin-top: 7rem;
     margin-left: 5rem;
     width: 50vw;
 }
@@ -164,12 +164,12 @@ h4 {
     width: 20rem;
     height: 3rem;
     margin: 5rem 0 1rem 2rem;
-    box-shadow: -4px 4px rgb(85, 255, 85);
+    box-shadow: -4px 4px rgb(83, 255, 85);
     outline: none;
 }
 
 button:active {
-    background-color: rgb(85, 255, 85);
+    background-color: rgb(83, 255, 85);
 }
 
 .hidden {
