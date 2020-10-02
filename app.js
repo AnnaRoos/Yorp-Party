@@ -35,13 +35,13 @@ window.addEventListener('load', () => {
     const partyType = document.getElementById('type-party');
     const collectSound = new Audio('collectCandy3.mp3');
     const ouch = new Audio('ouch.mp3');
-    const findingYorp = new Audio('collectCandy2.mp3');
+    const findingYorp = new Audio('collectYorp.mp3');
 
 
     const brickSize = 30;
-    let timeLeft = 10;
+    let timeLeft;
     let gameOver = false;
-    let partyCount = 0;
+    let partyCount;
     let requestID = null;
     let typeOfParty;
     let counter;
@@ -163,15 +163,6 @@ window.addEventListener('load', () => {
         })
     }
     
-
-/*     function collisionDetection(x1, y1, x2, y2) {
-        if((x1 === x2 && y1 === y2) || ()
-        || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0]
-        && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1])) {
-            return true;
-        }
-
-    } */
     
 
     
@@ -191,14 +182,14 @@ window.addEventListener('load', () => {
                 partyScore.textContent = partyCount;
             }
         }
-    }
+    } 
     
     function findYorp() {
-        if((Math.round(norpTheYorp.x1 / brickSize) === missingYorp.getPosition[0] 
-        && Math.round(norpTheYorp.y1 / brickSize) === missingYorp.getPosition[1])
-        || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0]
-        && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1])) {
-
+        if((Math.round(norpTheYorp.x1 / brickSize) === missingYorp.getPosition[0] +1
+        && Math.round(norpTheYorp.y1 / brickSize) === missingYorp.getPosition[1] + 1)
+        || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0] + 1
+        && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1] + 1)) {
+            console.log(norpTheYorp.x1, norpTheYorp.y1, missingYorp.getPosition[0], missingYorp.getPosition[1]);
             findingYorp.play();
             let newPosition = missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)];
             if((newPosition[0] != missingYorp.getPosition[0]) && (newPosition[0] != missingYorp.getPosition[1])){
@@ -215,9 +206,9 @@ window.addEventListener('load', () => {
     
     function berkeloidAttack() {
         if((Math.round((norpTheYorp.x1 + 20) / brickSize) === Math.round((fireCreature.x1 + 30) / brickSize) 
-        && Math.round((norpTheYorp.y1 + 20) / brickSize) === Math.round((fireCreature.y1 + 30) / brickSize))
+        && Math.round((norpTheYorp.y1 + 20) / brickSize) === Math.round((fireCreature.y1 + 40) / brickSize))
         || (Math.round((norpTheYorp.x1 + 20) / brickSize) === Math.round((fireCreature.x1 + 30) / brickSize)
-        && Math.round((norpTheYorp.y1 + 50) / brickSize) === Math.round((fireCreature.y1 + 30) / brickSize))) {
+        && Math.round((norpTheYorp.y1 + 50) / brickSize) === Math.round((fireCreature.y1 + 40) / brickSize))) {
             ouch.play();
             gameOver = true;
         }
@@ -230,17 +221,23 @@ window.addEventListener('load', () => {
     
     
     function moveNorp(e) {
+        //go left
         if(e.keyCode === 37 && map[Math.round((norpTheYorp.y1 - 10) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0
-        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0){
+        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0
+        && map[Math.round((norpTheYorp.y1 + 10) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0){
             norpTheYorp.x1 -= 10;
             norp = document.getElementById('norp2');
+        //go up
         } else if(e.keyCode === 38 && map[Math.round((norpTheYorp.y1 - 20) / brickSize)][Math.round((norpTheYorp.x1 - 10) / brickSize)] === 0
         && map[Math.round((norpTheYorp.y1 - 20) / brickSize)][Math.round((norpTheYorp.x1 + 20) / brickSize)] === 0){
             norpTheYorp.y1 -= 10;
+        //go right
         } else if(e.keyCode === 39 && map[Math.round((norpTheYorp.y1 - 10) / brickSize)][Math.round((norpTheYorp.x1 + 25) / brickSize)] === 0
-        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)][Math.round((norpTheYorp.x1 + 25) / brickSize)] === 0){
+        && map[Math.round((norpTheYorp.y1 + 30) / brickSize)][Math.round((norpTheYorp.x1 + 25) / brickSize)] === 0
+        && map[Math.round((norpTheYorp.y1 + 10) / brickSize)][Math.round((norpTheYorp.x1 + 25) / brickSize)] === 0){
             norpTheYorp.x1 += 10;
             norp = document.getElementById('norp');
+        //go down
         } else if(e.keyCode === 40 && map[Math.round((norpTheYorp.y1 + 40) / brickSize)][Math.round((norpTheYorp.x1 -10) / brickSize)] === 0
         && map[Math.round((norpTheYorp.y1 + 40) / brickSize)][Math.round((norpTheYorp.x1 + 20) / brickSize)] === 0){
             norpTheYorp.y1 += 10;
@@ -260,9 +257,6 @@ window.addEventListener('load', () => {
         norp = document.getElementById('norp');
         norpTheYorp.x1 = 30;
         norpTheYorp.y1 = 30;
-/*         missingYorpPositions = [
-            [5, 2], [17, 2], [14, 5], [9, 11], [10, 16], [5, 19], [24, 19], [18, 12], [23, 8]
-        ]; */
         congrats.classList.add('hidden');
         lastWords.classList.add('hidden');
         waynesWorld.classList.add('hidden');
@@ -270,6 +264,7 @@ window.addEventListener('load', () => {
         breakfastClub.classList.add('hidden');
         dirtyDancing.classList.add('hidden');
         legallyBlonde.classList.add('hidden');
+        greatGatsby.classList.add('hidden');
         burningYorp.classList.add('hidden');
         cancelAnimationFrame(requestID);
         clearInterval(counter); 
