@@ -46,7 +46,7 @@ window.addEventListener('load', () => {
     let typeOfParty;
     let counter;
 
-    
+    //possible map-positions for Norps missing friends
     let missingYorpPositions = [
         [5, 2], [17, 2], [14, 5], [9, 11], [10, 16], [5, 19], [24, 19], [18, 12], [23, 8]
     ];
@@ -76,6 +76,7 @@ window.addEventListener('load', () => {
     const partyItems = [lollipop, cake, cookie, soda, peppermint, pizza, iceCream];
     let partyItemObjects = [];
     
+    //a loop that creates party item objects and pushes them in to the array above
     for (let i = 0; i < 10; i++) {
         let item = {
             x1: Math.floor(Math.random() * 29),
@@ -87,7 +88,7 @@ window.addEventListener('load', () => {
     }
     
     
-    
+    //a map of the game, 1 means a brick and 0 means empty space
     const map = [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
@@ -113,6 +114,7 @@ window.addEventListener('load', () => {
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ];
     
+    //contains a nested for-loop that draws the map
     function drawMap() {
         for(let y = 0; y < map.length; y++){
             let row = map[y];
@@ -129,13 +131,17 @@ window.addEventListener('load', () => {
     function drawNorp() {
         ctx.drawImage(norp, norpTheYorp.x1, norpTheYorp.y1);
     }
+
+    function drawMissingYorp() {
+        ctx.drawImage(missingYorp.img, missingYorp.getPosition[0] * brickSize, missingYorp.getPosition[1] * brickSize + 5);
+    }
     
+    //draws the Berkeloid and controls its movements
     function drawBerkeloid() {
         ctx.drawImage(berkeloid, fireCreature.x1, fireCreature.y1)
         fireCreature.x1 += speedX;
         fireCreature.y1 += speedY;
         if(fireCreature.y1 + speedY < 25 || fireCreature.y1 + speedY > canvas.height - 85){ 
-            //top || bottom
             speedY = -speedY;
         } 
         if(fireCreature.x1 + speedX > canvas.width - 85) {
@@ -149,7 +155,7 @@ window.addEventListener('load', () => {
     }
     
 
-    
+    //puts the 10 party items in random places in the map
     function drawPartyItems(arrayOfItems) {
         arrayOfItems.forEach(item => {
             if(map[item.y1][item.x1] === 0 && map[item.y1][item.x1] === 0){ 
@@ -165,7 +171,7 @@ window.addEventListener('load', () => {
     
     
 
-    
+    //detects if you are in the same place as a party item
     function collectPartyItemObjects(arrayOfPartyItems) {
         for(let i = 0; i < arrayOfPartyItems.length; i++) {
             if((Math.round(norpTheYorp.x1 / brickSize) === arrayOfPartyItems[i].x1 
@@ -184,12 +190,12 @@ window.addEventListener('load', () => {
         }
     } 
     
+    //detects if you are in the same place as a Yorp friend
     function findYorp() {
         if((Math.round(norpTheYorp.x1 / brickSize) === missingYorp.getPosition[0] +1
         && Math.round(norpTheYorp.y1 / brickSize) === missingYorp.getPosition[1] + 1)
         || (Math.round((norpTheYorp.x1 + 10) / brickSize) === missingYorp.getPosition[0] + 1
         && Math.round((norpTheYorp.y1 + 30) / brickSize) === missingYorp.getPosition[1] + 1)) {
-            console.log(norpTheYorp.x1, norpTheYorp.y1, missingYorp.getPosition[0], missingYorp.getPosition[1]);
             findingYorp.play();
             let newPosition = missingYorpPositions[Math.floor(Math.random() * missingYorpPositions.length)];
             if((newPosition[0] != missingYorp.getPosition[0]) && (newPosition[0] != missingYorp.getPosition[1])){
@@ -204,6 +210,7 @@ window.addEventListener('load', () => {
         }
     }
     
+    //detects if you are hit by the Berkeloid
     function berkeloidAttack() {
         if((Math.round((norpTheYorp.x1 + 20) / brickSize) === Math.round((fireCreature.x1 + 30) / brickSize) 
         && Math.round((norpTheYorp.y1 + 20) / brickSize) === Math.round((fireCreature.y1 + 40) / brickSize))
@@ -215,11 +222,7 @@ window.addEventListener('load', () => {
     }
     
     
-    function drawMissingYorp() {
-        ctx.drawImage(missingYorp.img, missingYorp.getPosition[0] * brickSize, missingYorp.getPosition[1] * brickSize + 5);
-    }
-    
-    
+    //this is how you can move Norp without going in to bricks
     function moveNorp(e) {
         //go left
         if(e.keyCode === 37 && map[Math.round((norpTheYorp.y1 - 10) / brickSize)][Math.round((norpTheYorp.x1 - 20) / brickSize)] === 0
@@ -244,6 +247,7 @@ window.addEventListener('load', () => {
         }
     }
     
+    //resets all values so you can restart the game without reloading the page
     function resetValues() {
         timeLeft = 100;
         gameOver = false;
@@ -270,6 +274,7 @@ window.addEventListener('load', () => {
         clearInterval(counter); 
     }
     
+    //connected to the start button, controls the timeframe of the game and calls the drawGame function
     function setTimer() {
         resetValues();
         drawGame();
@@ -336,7 +341,7 @@ window.addEventListener('load', () => {
         }, 1000);
     }
     
-    
+    //draws everything that you see in the canvas
     function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawMap();
